@@ -5,7 +5,7 @@ use Mundanity\Collection\Collection;
 
 class CollectionTest extends PHPUnit_Framework_TestCase
 {
-    public function testHasReturnsTrue()
+    public function testHas()
     {
         $collection = new Collection(['item1']);
         $this->assertTrue($collection->has('item1'));
@@ -22,6 +22,29 @@ class CollectionTest extends PHPUnit_Framework_TestCase
 
         $collection = new Collection(['item1']);
         $this->assertFalse($collection->isEmpty());
+    }
+
+
+    public function testGetWhere()
+    {
+        $collection = new Collection();
+        $result = $collection->getWhere(function($item) {} );
+        $this->assertNull($result);
+
+        $collection = new Collection(['found']);
+        $result = $collection->getWhere(function($item) {
+            return $item == 'found';
+        });
+        $this->assertEquals('found', $result);
+
+        $item = new \StdClass;
+        $item->property = 'value';
+        $collection = new Collection([$item]);
+        $result = $collection->getWhere(function($item) {
+            return $item->property == 'value';
+        });
+        $this->assertEquals($item, $result);
+        $this->assertNotSame($item, $result);
     }
 
 
