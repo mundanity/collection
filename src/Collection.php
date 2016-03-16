@@ -47,7 +47,7 @@ class Collection implements CollectionInterface
      */
     public function getWhere(callable $callable)
     {
-        foreach($this->data as $item) {
+        foreach ($this->data as $item) {
             if ($callable($item) === true) {
                 return is_object($item) ? clone $item : $item;
             }
