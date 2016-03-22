@@ -37,6 +37,19 @@ interface CollectionInterface extends \Countable, \IteratorAggregate
 
 
     /**
+     * Returns an item at the specified index.
+     *
+     * @param int $index
+     *   The numerical index to return a value in the collection for.
+     *
+     * @return mixed|null
+     *   The matched item, or null if the index is out of range.
+     *
+     */
+    public function getAtIndex($index);
+
+
+    /**
      * Determines if the collection is empty or not.
      *
      * @return boolean

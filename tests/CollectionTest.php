@@ -5,6 +5,19 @@ use Mundanity\Collection\Collection;
 
 class CollectionTest extends PHPUnit_Framework_TestCase
 {
+    public function testCollectionStripsKeys()
+    {
+        $collection = new Collection([
+            'one' => 'item1',
+            'two' => 'item2',
+        ]);
+
+        $data = $collection->toArray();
+        $this->assertArrayNotHasKey('one', $data);
+        $this->assertArrayHasKey(0, $data);
+    }
+
+
     public function testHas()
     {
         $collection = new Collection(['item1']);
@@ -12,6 +25,20 @@ class CollectionTest extends PHPUnit_Framework_TestCase
 
         $collection = new Collection();
         $this->assertFalse($collection->has('item'));
+    }
+
+
+    public function testGetAtIndex()
+    {
+        $collection = new Collection(['item1', 'item2']);
+        $this->assertEquals('item2', $collection->getAtIndex(1));
+        $this->assertCount(2, $collection);
+
+        $collection = new Collection(['item1']);
+        $this->assertNull($collection->getAtIndex(1));
+
+        $collection = new Collection(['item1']);
+        $this->assertNull($collection->getAtIndex('potato'));
     }
 
 

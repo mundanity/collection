@@ -5,6 +5,24 @@ use Mundanity\Collection\KeyedCollection;
 
 class KeyedCollectionTest extends PHPUnit_Framework_TestCase
 {
+    public function testGetAtIndex()
+    {
+        $collection = new KeyedCollection([
+            'key1' => 'item1',
+            'key2' => 'item2',
+        ]);
+
+        $this->assertEquals('item2', $collection->getAtIndex(1));
+        $this->assertCount(2, $collection);
+
+        $collection = new KeyedCollection(['key1' => 'item1']);
+        $this->assertNull($collection->getAtIndex(1));
+
+        $collection = new KeyedCollection(['key1' => 'item1']);
+        $this->assertNull($collection->getAtIndex('potato'));
+    }
+
+
     public function testHasKey()
     {
         $collection = new KeyedCollection(['key' => 'value']);

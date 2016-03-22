@@ -22,12 +22,14 @@ class Collection implements CollectionInterface
      * Constructor
      *
      * @param array $data
-     *   An array of data to populate the collection with.
+     *   An array of data to populate the collection with. Note that existing
+     *   indexes are removed. If indexes are significant, use KeyedCollection
+     *   instead.
      *
      */
     public function __construct(array $data = [])
     {
-        $this->data = $data;
+        $this->data = array_values($data);
     }
 
 
@@ -52,6 +54,20 @@ class Collection implements CollectionInterface
                 return is_object($item) ? clone $item : $item;
             }
         }
+    }
+
+
+    /**
+     * {@inheritdoc}
+     *
+     */
+    public function getAtIndex($index)
+    {
+        if (!is_numeric($index)) {
+            return;
+        }
+
+        return isset($this->data[$index]) ? $this->data[$index] : null;
     }
 
 
