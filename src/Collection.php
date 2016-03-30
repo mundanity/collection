@@ -37,6 +37,16 @@ class Collection implements CollectionInterface
      * {@inheritdoc}
      *
      */
+    public static function fromCollection(CollectionInterface $collection)
+    {
+        return new static($collection->toArray());
+    }
+
+
+    /**
+     * {@inheritdoc}
+     *
+     */
     public function has($item)
     {
         return in_array($item, $this->data);

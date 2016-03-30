@@ -5,6 +5,18 @@ use Mundanity\Collection\Collection;
 
 class CollectionTest extends PHPUnit_Framework_TestCase
 {
+    public function testFromCollection()
+    {
+        $source = $this->getMock('Mundanity\Collection\MutableCollection');
+        $source->method('toArray')
+            ->willReturn([]);
+
+        $collection = Collection::fromCollection($source);
+
+        $this->assertInstanceOf('Mundanity\Collection\Collection', $collection);
+    }
+
+
     public function testCollectionStripsKeys()
     {
         $collection = new Collection([

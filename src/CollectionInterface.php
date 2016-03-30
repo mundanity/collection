@@ -10,6 +10,20 @@ namespace Mundanity\Collection;
 interface CollectionInterface extends \Countable, \IteratorAggregate
 {
     /**
+     * Static factory method to create a new collection from an existing one.
+     * Useful for creating a read only copy of a mutable collection, or vice
+     * versa.
+     *
+     * @param CollectionInterface $collection
+     *   A collection.
+     *
+     * @return static
+     *
+     */
+    public static function fromCollection(CollectionInterface $collection);
+
+
+    /**
      * Determines if the item exists within the collection.
      *
      * @param mixed $item
