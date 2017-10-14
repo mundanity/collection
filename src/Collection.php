@@ -142,6 +142,17 @@ class Collection implements CollectionInterface
      */
     public function map(callable $callable)
     {
-        return array_map($callable, $this->data);
+        $data = array_map($callable, $this->data);
+        return new static($data);
+    }
+
+
+    /**
+     * {@inheritdoc}
+     *
+     */
+    public function reduce(callable $callable, $initial = null)
+    {
+        return array_reduce($this->data, $callable, $initial);
     }
 }

@@ -1,19 +1,27 @@
 <?php
 
 use Mundanity\Collection\Collection;
+use Mundanity\Collection\MutableCollection;
 
 
 class CollectionTest extends PHPUnit_Framework_TestCase
 {
     public function testFromCollection()
     {
-        $source = $this->getMock('Mundanity\Collection\MutableCollection');
+        $source = $this->createMock(MutableCollection::class);
         $source->method('toArray')
             ->willReturn([]);
 
         $collection = Collection::fromCollection($source);
 
-        $this->assertInstanceOf('Mundanity\Collection\Collection', $collection);
+        $this->assertInstanceOf(Collection::class, $collection);
+    }
+
+
+    public function testIsIterable()
+    {
+        $collection = new Collection([1, 2, 3]);
+        $this->assertInstanceOf(\Traversable::class, $collection);
     }
 
 
@@ -126,11 +134,44 @@ class CollectionTest extends PHPUnit_Framework_TestCase
     public function testMap()
     {
         $collection = new Collection([1, 2, 3, 4, 5]);
-        $map = $collection->map(function($item) {
+        $mapped     = $collection->map(function($item) {
             return ($item + 1);
         });
 
-        $this->assertCount(5, $map);
-        $this->assertEquals([2, 3, 4, 5, 6], $map);
+        $this->assertInstanceOf(Collection::class, $mapped);
+        $this->assertCount(5, $mapped);
+        $this->assertTrue($mapped->has(6));
+    }
+
+
+    public function testReduce()
+    {
+        $collection = new Collection([1, 2, 3, 4, 5]);
+        $reduced    = $collection->reduce(function($carry, $item) {
+            return $carry + $item;
+        });
+
+        $this->assertInternalType('int', $reduced);
+        $this->assertEquals(15, $reduced);
+    }
+
+
+    public function testReduceHandlesInitialValue()
+    {
+        $collection = new Collection([1, 2, 3]);
+        $reduced    = $collection->reduce(function($carry, $item) {
+            return $carry - $item;
+        }, 5);
+
+        $this->assertInternalType('int', $reduced);
+        $this->assertEquals(-1, $reduced);
+
+        $collection = new Collection([]);
+        $reduced    = $collection->reduce(function($carry, $item) {
+            return $carry + $item;
+        }, 'foo');
+
+        $this->assertInternalType('string', $reduced);
+        $this->assertEquals('foo', $reduced);
     }
 }

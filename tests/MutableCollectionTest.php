@@ -26,4 +26,27 @@ class MutableCollectionTest extends PHPUnit_Framework_TestCase
         $collection->remove('item3');
         $this->assertCount(1, $collection);
     }
+
+
+    public function testFilterReturnsSameObject()
+    {
+        $collection = new MutableCollection([1, 2, 3]);
+        $filtered   = $collection->filter(function($item) {
+            return ($item < 3);
+        });
+
+        $this->assertCount(2, $filtered);
+        $this->assertSame($collection, $filtered);
+    }
+
+
+    public function testMapReturnsSameObject()
+    {
+        $collection = new MutableCollection([1, 2, 3]);
+        $mapped     = $collection->map(function($item) {
+            return ($item * 2);
+        });
+
+        $this->assertSame($collection, $mapped);
+    }
 }

@@ -102,8 +102,25 @@ interface CollectionInterface extends \Countable, \IteratorAggregate
      *   The callable to use as the mapping function. Each item in the
      *   collection will be passed to the callable as the first parameter.
      *
-     * @return array
+     * @return static
      *
      */
     public function map(callable $callable);
+
+
+    /**
+     * Reduces the collection to a single value using the provided callable.
+     *
+     * @param callable $callable
+     *   The callable to use to as the reduction function. The callable will
+     *   receive the previous result of the reduction and the item in the
+     *   collection as parameters.
+     * @param mixed $initial
+     *   The optional initial value to use at the beginning of the process. If
+     *   the collection is empty, this will also be the final result.
+     *
+     * @return mixed
+     *
+     */
+    public function reduce(callable $callable, $initial = null);
 }

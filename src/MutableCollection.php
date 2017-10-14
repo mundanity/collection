@@ -31,4 +31,30 @@ class MutableCollection extends Collection implements MutableCollectionInterface
         }
         return $this;
     }
+
+
+    /**
+     * {@inheritdoc}
+     *
+     */
+    public function filter(callable $callable)
+    {
+        $collection = parent::filter($callable);
+        $this->data = $collection->toArray();
+
+        return $this;
+    }
+
+
+    /**
+     * {@inheritdoc}
+     *
+     */
+    public function map(callable $callable)
+    {
+        $collection = parent::map($callable);
+        $this->data = $collection->toArray();
+
+        return $this;
+    }
 }
