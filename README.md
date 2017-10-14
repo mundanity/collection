@@ -5,7 +5,7 @@ A simple PHP based collection.
 
 ## Usage
 
-For basic usage, use the provided base class of [Collection](src/Collection.php] or [KeyedCollection](src/KeyedCollection.php]. Each class has a mutable counterpart.
+For basic usage, use the provided base class of [Collection](src/Collection.php) or [KeyedCollection](src/KeyedCollection.php). Each class has a mutable counterpart.
 
 ```php
 <?php
