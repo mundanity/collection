@@ -49,4 +49,28 @@ class MutableCollectionTest extends PHPUnit_Framework_TestCase
 
         $this->assertSame($collection, $mapped);
     }
+
+
+    public function testDiffReturnsSameObject()
+    {
+        $collection1 = new MutableCollection([1, 2, 3]);
+        $collection2 = new MutableCollection([1, 4, 5]);
+        $collection3 = new MutableCollection([1, 6, 7]);
+
+        $diffed = $collection1->diff($collection2, $collection3);
+
+        $this->assertSame($collection1, $diffed);
+    }
+
+
+    public function testIntersectReturnsSameObject()
+    {
+        $collection1 = new MutableCollection([1, 2, 3]);
+        $collection2 = new MutableCollection([1, 4, 5]);
+        $collection3 = new MutableCollection([1, 6, 7]);
+
+        $intersection = $collection1->intersect($collection2, $collection3);
+
+        $this->assertSame($collection1, $intersection);
+    }
 }

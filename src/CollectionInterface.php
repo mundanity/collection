@@ -123,4 +123,28 @@ interface CollectionInterface extends \Countable, \IteratorAggregate
      *
      */
     public function reduce(callable $callable, $initial = null);
+
+
+    /**
+     * Returns a diff against one or more collections.
+     *
+     * @param CollectionInterface ...$collection
+     *   One or more collections to diff against.
+     *
+     * @return static
+     *
+     */
+    public function diff(CollectionInterface ...$collection);
+
+
+    /**
+     * Returns an intersection against one or more collections.
+     *
+     * @param CollectionInterface ...$collecftion
+     *   One or more collections to intersect against.
+     *
+     * @return static
+     *
+     */
+    public function intersect(CollectionInterface ...$collection);
 }

@@ -155,4 +155,38 @@ class Collection implements CollectionInterface
     {
         return array_reduce($this->data, $callable, $initial);
     }
+
+
+    /**
+     * {@inheritdoc}
+     *
+     */
+    public function diff(CollectionInterface ...$collection)
+    {
+        $diffs = array_map(function($item) {
+            return $item->toArray();
+        }, $collection);
+
+        $func = ($this instanceof KeyedCollection) ? 'array_diff_assoc' : 'array_diff';
+        $data = $func($this->data, ...$diffs);
+
+        return new static($data);
+    }
+
+
+    /**
+     * {@inheritdoc}
+     *
+     */
+    public function intersect(CollectionInterface ...$collection)
+    {
+        $intersections = array_map(function($item) {
+            return $item->toArray();
+        }, $collection);
+
+        $func = ($this instanceof KeyedCollection) ? 'array_intersect_assoc' : 'array_intersect';
+        $data = $func($this->data, ...$intersections);
+
+        return new static($data);
+    }
 }

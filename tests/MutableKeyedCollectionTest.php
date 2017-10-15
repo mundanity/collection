@@ -65,4 +65,38 @@ class MutableKeyedCollectionTest extends PHPUnit_Framework_TestCase
 
         $this->assertSame($collection, $mapped);
     }
+
+
+    public function testDiffReturnsSameObject()
+    {
+        $collection1 = new MutableKeyedCollection([
+            'key1' => 'value1',
+            'key2' => 'value2',
+        ]);
+        $collection2 = new MutableKeyedCollection([
+            'key1' => 'value1',
+            'key3' => 'value3',
+        ]);
+
+        $diff = $collection1->diff($collection2);
+
+        $this->assertSame($diff, $collection1);
+    }
+
+
+    public function testIntersectReturnsSameObject()
+    {
+        $collection1 = new MutableKeyedCollection([
+            'key1' => 'value1',
+            'key2' => 'value2',
+        ]);
+        $collection2 = new MutableKeyedCollection([
+            'key1' => 'value1',
+            'key3' => 'value3',
+        ]);
+
+        $intersection = $collection1->intersect($collection2);
+
+        $this->assertSame($intersection, $collection1);
+    }
 }

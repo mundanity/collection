@@ -174,4 +174,33 @@ class CollectionTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType('string', $reduced);
         $this->assertEquals('foo', $reduced);
     }
+
+
+    public function testDiff()
+    {
+        $collection1 = new Collection([1, 2, 3]);
+        $collection2 = new Collection([1, 4, 5]);
+        $collection3 = new Collection([1, 6, 7]);
+
+        $diffed = $collection1->diff($collection2, $collection3);
+
+        $this->assertInstanceOf(Collection::class, $diffed);
+        $this->assertCount(2, $diffed);
+        $this->assertTrue($diffed->has(2));
+        $this->assertTrue($diffed->has(3));
+    }
+
+
+    public function testIntersect()
+    {
+        $collection1 = new Collection([1, 2, 3]);
+        $collection2 = new Collection([1, 4, 5]);
+        $collection3 = new Collection([1, 6, 7]);
+
+        $intersection = $collection1->intersect($collection2, $collection3);
+
+        $this->assertInstanceOf(Collection::class, $intersection);
+        $this->assertCount(1, $intersection);
+        $this->assertTrue($intersection->has(1));
+    }
 }

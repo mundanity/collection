@@ -46,4 +46,30 @@ trait MutableTrait
 
         return $this;
     }
+
+
+    /**
+     * {@inheritdoc}
+     *
+     */
+    public function diff(CollectionInterface ...$collection)
+    {
+        $this->data = parent::diff(...$collection)
+            ->toArray();
+
+        return $this;
+    }
+
+
+    /**
+     * {@inheritdoc}
+     *
+     */
+    public function intersect(CollectionInterface ...$collection)
+    {
+        $this->data = parent::intersect(...$collection)
+            ->toArray();
+
+        return $this;
+    }
 }

@@ -47,4 +47,78 @@ class KeyedCollectionTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($item, $collection->getByKey('key'));
         $this->assertNotSame($item, $collection->getByKey('key'));
     }
+
+
+    public function testDiff()
+    {
+        $collection1 = new KeyedCollection([
+            'key1' => 'value1',
+            'key2' => 'value2',
+        ]);
+        $collection2 = new KeyedCollection([
+            'key1' => 'value1',
+            'key3' => 'value3',
+        ]);
+
+        $diff = $collection1->diff($collection2);
+
+        $this->assertCount(1, $diff);
+        $this->assertTrue($diff->has('value2'));
+        $this->assertTrue($diff->hasKey('key2'));
+    }
+
+
+    public function testDiffMatchesKeys()
+    {
+        $collection1 = new KeyedCollection([
+            'keyX' => 'value1',
+            'key2' => 'value2',
+        ]);
+        $collection2 = new KeyedCollection([
+            'key1' => 'value1',
+            'keyX' => 'value2',
+        ]);
+
+        $diff = $collection1->diff($collection2);
+
+        $this->assertCount(2, $diff);
+        $this->assertTrue($diff->hasKey('keyX'));
+        $this->assertTrue($diff->hasKey('key2'));
+    }
+
+
+    public function testIntersect()
+    {
+        $collection1 = new KeyedCollection([
+            'key1' => 'value1',
+            'key2' => 'value2',
+        ]);
+        $collection2 = new KeyedCollection([
+            'key1' => 'value1',
+            'key3' => 'value3',
+        ]);
+
+        $intersection = $collection1->intersect($collection2);
+
+        $this->assertCount(1, $intersection);
+        $this->assertTrue($intersection->has('value1'));
+        $this->assertTrue($intersection->hasKey('key1'));
+    }
+
+
+    public function testIntersectMatchesKeys()
+    {
+        $collection1 = new KeyedCollection([
+            'keyX' => 'value1',
+            'key2' => 'value2',
+        ]);
+        $collection2 = new KeyedCollection([
+            'key1' => 'value1',
+            'keyX' => 'value2',
+        ]);
+
+        $intersection = $collection1->intersect($collection2);
+
+        $this->assertTrue($intersection->isEmpty());
+    }
 }
