@@ -9,6 +9,8 @@ namespace Mundanity\Collection;
  */
 class MutableKeyedCollection extends KeyedCollection implements MutableKeyedCollectionInterface
 {
+    use MutableTrait;
+
     /**
      * {@inheritdoc}
      *
@@ -16,19 +18,6 @@ class MutableKeyedCollection extends KeyedCollection implements MutableKeyedColl
     public function add($key, $item)
     {
         $this->data[$key] = $item;
-        return $this;
-    }
-
-
-    /**
-     * {@inheritdoc}
-     *
-     */
-    public function remove($item)
-    {
-        if ($key = array_search($item, $this->data, true)) {
-            unset($this->data[$key]);
-        }
         return $this;
     }
 

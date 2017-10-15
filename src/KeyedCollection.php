@@ -23,7 +23,7 @@ class KeyedCollection extends Collection implements KeyedCollectionInterface
 
 
     /**
-     * {@inheritdoc{
+     * {@inheritdoc}
      *
      */
     public function getAtIndex($index)
