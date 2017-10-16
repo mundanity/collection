@@ -140,11 +140,23 @@ interface CollectionInterface extends \Countable, \IteratorAggregate
     /**
      * Returns an intersection against one or more collections.
      *
-     * @param CollectionInterface ...$collecftion
+     * @param CollectionInterface ...$collection
      *   One or more collections to intersect against.
      *
      * @return static
      *
      */
     public function intersect(CollectionInterface ...$collection);
+
+
+    /**
+     * Merges one or more collections with the current collection.
+     *
+     * @param CollectionInterface ...$collection
+     *   One or more collections to merge.
+     *
+     * @return static
+     *
+     */
+    public function merge(CollectionInterface ...$collection);
 }

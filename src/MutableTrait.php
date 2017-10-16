@@ -28,8 +28,8 @@ trait MutableTrait
      */
     public function filter(callable $callable)
     {
-        $collection = parent::filter($callable);
-        $this->data = $collection->toArray();
+        $this->data = parent::filter($callable)
+            ->toArray();
 
         return $this;
     }
@@ -41,8 +41,8 @@ trait MutableTrait
      */
     public function map(callable $callable)
     {
-        $collection = parent::map($callable);
-        $this->data = $collection->toArray();
+        $this->data = parent::map($callable)
+            ->toArray();
 
         return $this;
     }
@@ -68,6 +68,19 @@ trait MutableTrait
     public function intersect(CollectionInterface ...$collection)
     {
         $this->data = parent::intersect(...$collection)
+            ->toArray();
+
+        return $this;
+    }
+
+
+    /**
+     * {@inheritdoc}
+     *
+     */
+    public function merge(CollectionInterface ...$collection)
+    {
+        $this->data = parent::merge(...$collection)
             ->toArray();
 
         return $this;

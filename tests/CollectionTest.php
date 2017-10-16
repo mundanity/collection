@@ -203,4 +203,17 @@ class CollectionTest extends PHPUnit_Framework_TestCase
         $this->assertCount(1, $intersection);
         $this->assertTrue($intersection->has(1));
     }
+
+
+    public function testMerge()
+    {
+        $collection1 = new Collection([1]);
+        $collection2 = new Collection([2]);
+        $collection3 = new Collection([1, 3]);
+
+        $merged = $collection1->merge($collection2, $collection3);
+
+        $this->assertInstanceOf(Collection::Class, $merged);
+        $this->assertCount(4, $merged);
+    }
 }

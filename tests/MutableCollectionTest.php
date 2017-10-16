@@ -73,4 +73,17 @@ class MutableCollectionTest extends PHPUnit_Framework_TestCase
 
         $this->assertSame($collection1, $intersection);
     }
+
+
+    public function testMergeReturnsSameObject()
+    {
+        $collection1 = new MutableCollection([1]);
+        $collection2 = new MutableCollection([2]);
+        $collection3 = new MutableCollection([1, 3]);
+
+        $merged = $collection1->merge($collection2, $collection3);
+
+        $this->assertCount(4, $merged);
+        $this->assertSame($collection1, $merged);
+    }
 }

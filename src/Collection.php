@@ -189,4 +189,20 @@ class Collection implements CollectionInterface
 
         return new static($data);
     }
+
+
+    /**
+     * {@inheritdoc}
+     *
+     */
+    public function merge(CollectionInterface ...$collection)
+    {
+        $merges = array_map(function($item) {
+            return $item->toArray();
+        }, $collection);
+
+        $data = array_merge($this->data, ...$merges);
+
+        return new static($data);
+    }
 }
