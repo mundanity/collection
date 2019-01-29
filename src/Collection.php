@@ -21,15 +21,17 @@ class Collection implements CollectionInterface
     /**
      * Constructor
      *
-     * @param array $data
+     * @param array $items
      *   An array of data to populate the collection with. Note that existing
      *   indexes are removed. If indexes are significant, use KeyedCollection
      *   instead.
      *
      */
-    public function __construct(array $data = [])
+    public function __construct(array $items = [])
     {
-        $this->data = array_values($data);
+        foreach ($items as $item) {
+            $this->data[] = $item;
+        }
     }
 
 
