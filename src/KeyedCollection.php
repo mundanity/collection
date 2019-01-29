@@ -9,6 +9,13 @@ namespace Mundanity\Collection;
  */
 class KeyedCollection extends Collection implements KeyedCollectionInterface
 {
+    public function __construct(array $data = [])
+    {
+        $this->data = $data;
+
+        parent::__construct();
+    }
+
     /**
      * {@inheritdoc}
      *
