@@ -10,19 +10,6 @@ namespace Mundanity\Collection;
 class KeyedCollection extends Collection implements KeyedCollectionInterface
 {
     /**
-     * Constructor
-     *
-     * @param array $data
-     *   An array of data to populate the collection with.
-     *
-     */
-    public function __construct(array $data = [])
-    {
-        $this->data = $data;
-    }
-
-
-    /**
      * {@inheritdoc}
      *
      */
